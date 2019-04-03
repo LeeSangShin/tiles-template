@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd">
+	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/db/config/globals.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+    <!-- Mysql (POM에서 commons-dbcp, mysql-connector-java 관련 라이브러리 설정 )-->     
+    <bean id="dataSourcemy" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Globals_my.DriverClassName}" />
+		<property name="url" value="${Globals_my.Url}" />
+		<property name="username" value="${my.UserName}" />
+		<property name="password" value="${my.Pwd}" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+	
+	<!-- Oracle -->     
+    <bean id="dataSourceora" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Globals_ora.DriverClassName}" />
+		<property name="url" value="${Globals_ora.Url}" />
+		<property name="username" value="${ora.UserName}" />
+		<property name="password" value="${ora.Pwd}" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+    
+</beans>

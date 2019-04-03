@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
+	<mvc:resources location="/resource/**" mapping="/resource/"/>
+
+	<!-- 디비설정등의 프로퍼티스파일 -->
+	<!-- <context:property-placeholder location="/WEB-INF/config/dbconfig/*.properties" /> -->
+
+    <context:component-scan base-package="temp">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+
+	<mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/404error.do"/>
+            <bean id="loggerInterceptor" class="common.LoggerInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+ 	<!-- Tiles 3 Configurer -->
+	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+  		<property name="order" value="1" />
+ 	</bean>
+
+ 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+  		<property name="definitions">
+   			<list>
+    			<value>/WEB-INF/tiles/default-layout.xml</value>
+   			</list>
+  		</property>
+ 	</bean>
+
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="2"
+		p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="/WEB-INF/jsp/view/" p:suffix=".jsp"/>
+
+	<!-- property controll -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	 <property name="basenames" value="message/message"/>
+	</bean>
+
+	<bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+	 <constructor-arg ref="messageSource" />
+	</bean>
+
+	<bean id="message" class="common.MessageHandler">
+	 <property name="messageSourceAccessor" ref="messageSourceAccessor" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	    <property name="alwaysUseFullPath" value="true">
+		</property>
+	</bean>
+	 
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	    <property name="alwaysUseFullPath" value="true">
+		</property>
+	</bean>   
+</beans>
