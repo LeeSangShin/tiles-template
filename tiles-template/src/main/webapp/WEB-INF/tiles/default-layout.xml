@@ -23,5 +23,4 @@
 	<definition name="pop/*" extends="popup">
 		<put-attribute name="content" value="/WEB-INF/jsp/view/{1}/{2}/{3}.jsp" />
 	</definition>
-	
 </tiles-definitions>
