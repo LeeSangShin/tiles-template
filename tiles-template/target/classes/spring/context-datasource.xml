@@ -28,13 +28,13 @@
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
 	
-	<!-- Oracle -->     
+	<!-- Oracle      
     <bean id="dataSourceora" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${Globals_ora.DriverClassName}" />
 		<property name="url" value="${Globals_ora.Url}" />
 		<property name="username" value="${ora.UserName}" />
 		<property name="password" value="${ora.Pwd}" />
 		<property name="defaultAutoCommit" value="false" />
-	</bean>
+	</bean>-->
     
 </beans>

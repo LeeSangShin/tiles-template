@@ -1,13 +1,9 @@
 package com.ora;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
-@Service("oraservice")
+//@Service("oraservice")
 public class OraServiceImpl implements OraService {
 
-	@Resource(name="oramapper")
+	//@Resource(name="oramapper")
 	private OraMapper mapper;
 
 	@Override

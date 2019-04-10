@@ -7,23 +7,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.my.MyService;
-import com.ora.OraService;
 
 @Controller
 public class MainController {
 
-	@Resource(name="oraservice")
-	private OraService oraservice;
+	/*@Resource(name="oraservice")
+	private OraService oraservice;*/
 
 	@Resource(name="myservice")
 	private MyService myservice;
+
+	@RequestMapping("/index.do")
+	public ModelAndView index(ModelAndView modelAndView){
+		System.out.println("test");
+		modelAndView.setViewName("index");
+		//String test_ora = oraservice.test();
+		//System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■ "+test_ora+" ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+		String test_my = myservice.test_my();
+		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■ "+test_my+" ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+
+		return modelAndView;
+	}
 
 	@RequestMapping("/test.do")
 	public ModelAndView main(ModelAndView modelAndView){
 		System.out.println("test");
 		modelAndView.setViewName("test");
-		String test_ora = oraservice.test();
-		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■ "+test_ora+" ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+		//String test_ora = oraservice.test();
+		//System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■ "+test_ora+" ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 		String test_my = myservice.test_my();
 		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■ "+test_my+" ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 

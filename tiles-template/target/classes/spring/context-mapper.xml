@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 	<!-- SqlSession setup for MyBatis Database Layer -->
-	<bean id="orasqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+<!-- 	<bean id="orasqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourceora" />
 		<property name="configLocation" value="classpath:db/config/sql-mapper-config.xml" />
 		<property name="mapperLocations" value="classpath:db/sqlmap/ora/*.xml" />
-	</bean>
+	</bean> -->
 	
 	<bean id="mySqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSourcemy" />
@@ -16,11 +16,10 @@
 	</bean>
 
 	<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
- 	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
+ 	<!-- <bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
 		<property name="basePackage" value="com.ora" />
 		<property name="sqlSessionFactoryBeanName" value="orasqlSession" />
-<!-- 		<property name="basePackage" value="egovframework.sqlmap" /> -->
-	</bean>
+	</bean> -->
  	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
 		<property name="basePackage" value="com.my" />
 		<property name="sqlSessionFactoryBeanName" value="mySqlSession" />
